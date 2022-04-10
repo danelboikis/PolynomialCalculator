@@ -14,6 +14,12 @@ public class Rational implements Scalar{
         return s.add(this);
     }
 
+    @Override
+    public Scalar add(Integer s) {
+        return null;
+    }
+
+    @Override
     public Scalar add(Rational s) {
         return new Rational(this.numerator * s.denominator + s.numerator * this.denominator,
                 this.denominator * s.denominator);
@@ -24,8 +30,14 @@ public class Rational implements Scalar{
         return s.mul(this);
     }
 
+    @Override
     public Scalar mul(Rational s) {
         return new Rational(this.numerator * s.numerator, this.denominator * s.denominator);
+    }
+
+    @Override
+    public Scalar mul(Integer s) {
+        return null;
     }
 
     @Override
@@ -46,22 +58,44 @@ public class Rational implements Scalar{
 
     @Override
     public int sign() {
-        if(this.numerator * this.denominator > 0) {
-            return 1;
+        return (int) Math.signum(this.numerator * this.denominator);
+    }
+
+    private static int gcd(int n, int m) {
+        int r = n % m;
+
+        while(r != 0) {
+            n = m;
+            m = r;
+            r = n % m;
         }
-        else if(this.numerator == 0) {
-            return 0;
-        }
-        else {
-            return -1;
-        }
+
+        return m;
+    }
+
+    public Rational reduce() {
+        int numerator = Math.abs(this.numerator);
+        int denominator = Math.abs(this.denominator);
+
+        int gcd = gcd(numerator, denominator);
+
+        numerator /= gcd;
+        denominator /= gcd;
+
+        numerator *= sign();
+
+        return new Rational(numerator, denominator);
     }
 
     @Override
     public String toString() {
-        return "Rational{" +
-                "numerator=" + numerator +
-                ", denominator=" + denominator +
-                '}';
+        Rational reduced = reduce();
+
+        if(reduced.denominator == 1) {
+            return "" + reduced.numerator;
+        }
+        else {
+            return reduced.numerator + "/" + reduced.denominator;
+        }
     }
 }

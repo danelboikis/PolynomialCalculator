@@ -12,8 +12,14 @@ public class Integer implements Scalar{
         return s.add(this);
     }
 
+    @Override
     public Scalar add(Integer s) {
         return new Integer(s.number + this.number);
+    }
+
+    @Override
+    public Scalar add(Rational s) {
+        return null;
     }
 
     @Override
@@ -21,8 +27,14 @@ public class Integer implements Scalar{
         return s.mul(this);
     }
 
+    @Override
     public Scalar mul(Integer s) {
         return new Integer(s.number * this.number);
+    }
+
+    @Override
+    public Scalar mul(Rational s) {
+        return null;
     }
 
     @Override
@@ -43,14 +55,7 @@ public class Integer implements Scalar{
 
     @Override
     public int sign() {
-        if(number < 0) {
-            return -1;
-        }
-        else if(number > 0) {
-            return 1;
-        }
-
-        return 0;
+        return (int) Math.signum(this.number);
     }
 
     @Override
