@@ -19,7 +19,7 @@ public class Integer implements Scalar{
 
     @Override
     public Scalar add(Rational s) {
-        return null;
+        return s.add(new Rational(this.number, 1));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Integer implements Scalar{
 
     @Override
     public Scalar mul(Rational s) {
-        return null;
+        return s.mul(new Rational(this.number, 1));
     }
 
     @Override
@@ -58,10 +58,12 @@ public class Integer implements Scalar{
         return (int) Math.signum(this.number);
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     @Override
     public String toString() {
-        return "Integer{" +
-                "number=" + number +
-                '}';
+        return "" + number;
     }
 }

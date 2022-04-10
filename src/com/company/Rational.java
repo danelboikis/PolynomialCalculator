@@ -16,7 +16,7 @@ public class Rational implements Scalar{
 
     @Override
     public Scalar add(Integer s) {
-        return null;
+        return add(new Rational(s.getNumber(), 1));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Rational implements Scalar{
 
     @Override
     public Scalar mul(Integer s) {
-        return null;
+        return mul(new Rational(s.getNumber(), 1));
     }
 
     @Override
@@ -85,6 +85,14 @@ public class Rational implements Scalar{
         numerator *= sign();
 
         return new Rational(numerator, denominator);
+    }
+
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
     }
 
     @Override
