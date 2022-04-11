@@ -29,8 +29,26 @@ public class Monomial {
 
     public Monomial derivative()
     {
-
+        if(exponent == 0)
+            return(new Monomial(0, coefficient.mul(new Integer(0))));
         return(new Monomial(exponent - 1, coefficient.mul(new Integer(exponent))));
+    }
+
+    public int sign()
+    {
+        return coefficient.sign();
+    }
+
+    public String toString()
+    {
+        if(coefficient.sign() == 0)
+            return("0");
+        if(exponent == 0)
+            return(coefficient.toString());
+        if(exponent == 1)
+            return(coefficient.toString() + "x");
+        else
+            return(coefficient.toString() + "x^" + exponent);
     }
 
 
