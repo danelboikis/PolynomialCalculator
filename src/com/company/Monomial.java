@@ -42,13 +42,17 @@ public class Monomial {
     public String toString()
     {
         if(coefficient.sign() == 0)
-            return("0");
+            return "0";
         if(exponent == 0)
-            return(coefficient.toString());
+            return coefficient.toString();
         if(exponent == 1)
             return(coefficient.toString() + "x");
+        else if(coefficient.toString().equals("1"))
+            return "x^" + exponent;
+        else if(coefficient.toString().equals("-1"))
+            return "-x^" + exponent;
         else
-            return(coefficient.toString() + "x^" + exponent);
+            return coefficient.toString() + "x^" + exponent;
     }
 
 
