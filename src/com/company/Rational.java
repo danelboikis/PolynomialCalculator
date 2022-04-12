@@ -48,9 +48,10 @@ public class Rational implements Scalar{
     @Override
     public Scalar power(int exponent) {
         Scalar res = new Rational(1, 1);
+        Scalar reduced = reduce();
 
         for(int i = 0; i < exponent; i++) {
-            res = res.mul(this);
+            res = res.mul(reduced);
         }
 
         return res;
