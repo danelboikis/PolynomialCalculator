@@ -1,12 +1,15 @@
 package com.company;
 
-import java.util.LinkedList;
+import java.util.TreeMap;
 
 public class Polynomial {
-    private LinkedList<Monomial> monomials;
+    private TreeMap<String, Monomial> monomials;
 
     public Polynomial()
     {
-        monomials = new LinkedList<>();
+        monomials = new TreeMap<>();
+        monomials.put("0", new Monomial(0, new Integer(0)));
     }
+
+
 }
