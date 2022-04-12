@@ -8,5 +8,8 @@ public class Polynomial {
     public Polynomial()
     {
         monomials = new LinkedList<>();
+        monomials.add(new Monomial(0, new Integer(0)));
     }
-}
+
+    }
+
