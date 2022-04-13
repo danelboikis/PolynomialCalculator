@@ -56,15 +56,21 @@ public class Polynomial {
 
         res.addToTreeMap(p.monomials);
 
-        return null;
+        return res;
     }
+
+
 
     private void addToTreeMap(TreeMap<java.lang.Integer, Monomial> add) {
         for (Map.Entry<java.lang.Integer, Monomial> entry:
              add.entrySet()) {
             if(this.monomials.containsKey(entry.getKey())) {
                 this.monomials.put(entry.getKey(), entry.getValue().add(this.monomials.get(entry.getKey())));
+
+                if(this.monomials.get(entry.getKey()).getCoefficient().sign() == 0)
+                    this.monomials.remove(entry.getKey());
             }
+
             else {
                 this.monomials.put(entry.getKey(), entry.getValue().clone());
             }
@@ -95,6 +101,34 @@ public class Polynomial {
         }
 
         return res;
+    }
+
+    public Polynomial derivate()
+    {
+        Polynomial p = new Polynomial();
+        for (Map.Entry<java.lang.Integer, Monomial> entry:
+                this.monomials.entrySet())
+        {
+            Monomial m = entry.getValue().derivative();
+            if(m.getCoefficient().sign() != 0) {
+                p = p.add(new Polynomial(m));
+            }
+        }
+
+        return p;
+    }
+
+    public String toString()
+    {
+        String s = "";
+
+        for (Map.Entry<java.lang.Integer, Monomial> entry:
+                this.monomials.entrySet())
+        {
+            s = s+ entry.getValue().toString();
+        }
+
+        return s;
     }
 
 }
