@@ -10,6 +10,10 @@ public class Monomial {
         coefficient = coef;
     }
 
+    public Scalar getCoefficient() {
+        return coefficient;
+    }
+
     public Monomial add(Monomial m)
     {
         if(m.exponent == exponent)
