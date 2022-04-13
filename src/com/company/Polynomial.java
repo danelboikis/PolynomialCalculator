@@ -11,7 +11,7 @@ public class Polynomial {
         monomials.put(0, new Monomial(0, new Integer(0)));
     }
 
-    public Polynomial(Monomial m){
+    private Polynomial(Monomial m){
         this();
         monomials.put(m.getExponent(), m.clone());
     }
@@ -56,7 +56,7 @@ public class Polynomial {
 
         res.addToTreeMap(p.monomials);
 
-        return null;
+        return res;
     }
 
     private void addToTreeMap(TreeMap<java.lang.Integer, Monomial> add) {
