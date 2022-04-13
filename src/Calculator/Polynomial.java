@@ -1,4 +1,4 @@
-package com.company;
+package Calculator;
 
 import java.util.Map;
 import java.util.TreeMap;

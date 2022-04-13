@@ -1,4 +1,4 @@
-package com.company;
+package Calculator;
 
 public class Integer implements Scalar{
     private int number;
