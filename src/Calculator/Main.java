@@ -1,6 +1,4 @@
-package com.company;
-
-import java.sql.SQLOutput;
+package Calculator;
 
 public class Main {
 

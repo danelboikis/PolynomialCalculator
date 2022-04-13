@@ -1,4 +1,4 @@
-package com.company;
+package Calculator;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -123,9 +123,8 @@ public class Polynomial {
         String s = "";
 
         for (Map.Entry<java.lang.Integer, Monomial> entry:
-                this.monomials.entrySet())
-        {
-            s = s+ entry.getValue().toString();
+                this.monomials.entrySet()) {
+            s = s + entry.getValue().toString();
         }
 
         return s;
