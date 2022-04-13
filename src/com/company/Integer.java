@@ -66,4 +66,9 @@ public class Integer implements Scalar{
     public String toString() {
         return "" + number;
     }
+
+    @Override
+    public Scalar clone() {
+        return new Integer(this.number);
+    }
 }

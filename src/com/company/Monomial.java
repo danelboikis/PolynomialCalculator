@@ -55,10 +55,11 @@ public class Monomial {
             return coefficient.toString() + "x^" + exponent;
     }
 
+    public Monomial clone() {
+        return new Monomial(this.exponent, this.coefficient.clone());
+    }
 
-
-
-
-
-
+    public int getExponent() {
+        return exponent;
+    }
 }

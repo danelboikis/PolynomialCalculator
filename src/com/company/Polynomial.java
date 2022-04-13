@@ -8,7 +8,12 @@ public class Polynomial {
 
     public Polynomial() {
         monomials = new TreeMap<>();
-        monomials.put(new java.lang.Integer(0), new Monomial(0, new Integer(0)));
+        monomials.put(0, new Monomial(0, new Integer(0)));
+    }
+
+    public Polynomial(Monomial m){
+        this();
+        monomials.put(m.getExponent(), m.clone());
     }
 
     private Scalar stringToScalar(String s) {
@@ -19,7 +24,7 @@ public class Polynomial {
     }
 
     private boolean inKeys(int i) {
-        return (monomials.keySet().contains(i));
+        return (monomials.containsKey(i));
     }
 
     public static Polynomial build(String input)
@@ -34,13 +39,12 @@ public class Polynomial {
                 if (p.inKeys(i))
                 {
                     p.monomials.put(i, p.monomials.get(i).add(new Monomial(i, scalar)));
-                } else
+                }
+                else
                 {
                     p.monomials.put(i, new Monomial(i, scalar));
                 }
             }
-
-
         }
         return p;
     }
@@ -48,16 +52,50 @@ public class Polynomial {
     public Polynomial add(Polynomial p) {
         Polynomial res = new Polynomial();
 
-        for (Map.Entry<String, Monomial> entry:
-             monomials.entrySet()) {
-            if(res.monomials.containsKey(entry.getKey())) {
-                //res.monomials.put(entry.getKey(), )
-            }
-        }
+        res.addToTreeMap(this.monomials);
+
+        res.addToTreeMap(p.monomials);
 
         return null;
     }
 
+    private void addToTreeMap(TreeMap<java.lang.Integer, Monomial> add) {
+        for (Map.Entry<java.lang.Integer, Monomial> entry:
+             add.entrySet()) {
+            if(this.monomials.containsKey(entry.getKey())) {
+                this.monomials.put(entry.getKey(), entry.getValue().add(this.monomials.get(entry.getKey())));
+            }
+            else {
+                this.monomials.put(entry.getKey(), entry.getValue().clone());
+            }
+        }
+    }
+
+    public Polynomial mul(Polynomial p) {
+        Polynomial res = new Polynomial();
+
+        for (Map.Entry<java.lang.Integer, Monomial> entry1:
+             p.monomials.entrySet()) {
+            for (Map.Entry<java.lang.Integer, Monomial> entry2:
+                 this.monomials.entrySet()) {
+                Monomial multiplied = entry1.getValue().mul(entry2.getValue());
+                res = res.add(new Polynomial(multiplied));
+            }
+        }
+
+        return res;
+    }
+
+    public Scalar evaluate(Scalar s) {
+        Scalar res = new Integer(0);
+
+        for (Map.Entry<java.lang.Integer, Monomial> entry:
+             monomials.entrySet()) {
+            res = res.add(entry.getValue().evaluate(s));
+        }
+
+        return res;
+    }
 
 }
 

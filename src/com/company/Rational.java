@@ -107,4 +107,9 @@ public class Rational implements Scalar{
             return reduced.numerator + "/" + reduced.denominator;
         }
     }
+
+    @Override
+    public Scalar clone() {
+        return new Rational(this.numerator, this.denominator);
+    }
 }
