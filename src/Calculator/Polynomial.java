@@ -1,6 +1,7 @@
 package Calculator;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Polynomial {
@@ -14,6 +15,25 @@ public class Polynomial {
     public Polynomial(Monomial m){
         this();
         monomials.put(m.getExponent(), m.clone());
+    }
+
+    public boolean equals(Polynomial p)
+    {
+        boolean output = true;
+        Set<java.lang.Integer> keyset = this.monomials.keySet();
+        for(Map.Entry<java.lang.Integer, Monomial> entry:
+        p.monomials.entrySet())
+        {
+
+            output = this.monomials.containsKey(entry.getKey()) && this.monomials.get(entry.getKey()).equals(entry.getValue());
+            if(!output) {
+                return false;
+            }
+            keyset.remove(entry.getKey());
+
+        }
+
+        return keyset.isEmpty();
     }
 
     private Scalar stringToScalar(String s) {
