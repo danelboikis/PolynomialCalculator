@@ -7,9 +7,13 @@ public class Integer implements Scalar{
         this.number = number;
     }
 
-    public boolean equals(Integer i)
-    {
-        return i.getNumber() == this.getNumber();
+    public boolean equals(Object i) {
+        if(i instanceof Integer)
+            return ((Integer)i).getNumber() == this.getNumber();
+        else if(i instanceof Rational)
+            return ((Rational)i).getNumerator() / ((Rational)i).getDenominator() == this.getNumber();
+        else
+            return false;
     }
 
     @Override

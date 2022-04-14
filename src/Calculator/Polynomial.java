@@ -17,12 +17,14 @@ public class Polynomial {
         monomials.put(m.getExponent(), m.clone());
     }
 
-    public boolean equals(Polynomial p)
+    public boolean equals(Object p)
     {
+        if(!(p instanceof Polynomial))
+            return false;
         boolean output = true;
         Set<java.lang.Integer> keyset = this.monomials.keySet();
         for(Map.Entry<java.lang.Integer, Monomial> entry:
-        p.monomials.entrySet())
+                ((Polynomial)p).monomials.entrySet())
         {
 
             output = this.monomials.containsKey(entry.getKey()) && this.monomials.get(entry.getKey()).equals(entry.getValue());

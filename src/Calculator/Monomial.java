@@ -10,9 +10,11 @@ public class Monomial {
         coefficient = coef;
     }
 
-    public boolean equals(Monomial m)
-    {
-        return(m.coefficient.equals(this.coefficient) && m.exponent == this.exponent);
+    public boolean equals(Object m) {
+        if (m instanceof Monomial)
+            return(((Monomial)m).coefficient.equals(this.coefficient) && ((Monomial)m).exponent == this.exponent);
+        else
+            return false;
     }
 
     public Scalar getCoefficient() {
