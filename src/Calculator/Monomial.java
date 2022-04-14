@@ -10,6 +10,11 @@ public class Monomial {
         coefficient = coef;
     }
 
+    public boolean equals(Monomial m)
+    {
+        return(m.coefficient.equals(this.coefficient) && m.exponent == this.exponent);
+    }
+
     public Scalar getCoefficient() {
         return coefficient;
     }

@@ -7,6 +7,11 @@ public class Integer implements Scalar{
         this.number = number;
     }
 
+    public boolean equals(Integer i)
+    {
+        return i.getNumber() == this.getNumber();
+    }
+
     @Override
     public Scalar add(Scalar s) {
         return s.add(this);

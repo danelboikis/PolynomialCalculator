@@ -9,6 +9,11 @@ public class Rational implements Scalar{
         this.denominator = denominator;
     }
 
+    public boolean equals(Rational r)
+    {
+        return(this.getNumerator()/this.getDenominator() == r.getNumerator()/r.getDenominator());
+    }
+
     @Override
     public Scalar add(Scalar s) {
         return s.add(this);
