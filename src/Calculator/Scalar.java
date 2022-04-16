@@ -1,23 +1,23 @@
 package Calculator;
 
 public interface Scalar {
-    Scalar add(Scalar s);
+    public Scalar add(Scalar s);
 
-    Scalar add(Integer s);
+    public Scalar add(Integer s);
 
-    Scalar add(Rational s);
+    public Scalar add(Rational s);
 
-    Scalar mul(Scalar s);
+    public Scalar mul(Scalar s);
 
-    Scalar mul(Integer s);
+    public Scalar mul(Integer s);
 
-    Scalar mul(Rational s);
+    public Scalar mul(Rational s);
 
-    Scalar neg();
+    public Scalar neg();
 
-    Scalar power(int exponent);
+    public Scalar power(int exponent);
 
-    int sign();
+    public int sign();
 
-    Scalar clone();
+    public Scalar clone();
 }

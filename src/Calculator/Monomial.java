@@ -10,17 +10,6 @@ public class Monomial {
         coefficient = coef;
     }
 
-    public boolean equals(Object m) {
-        if (m instanceof Monomial)
-            return(((Monomial)m).coefficient.equals(this.coefficient) && ((Monomial)m).exponent == this.exponent);
-        else
-            return false;
-    }
-
-    public Scalar getCoefficient() {
-        return coefficient;
-    }
-
     public Monomial add(Monomial m)
     {
         if(m.exponent == exponent)
@@ -52,6 +41,10 @@ public class Monomial {
         return coefficient.sign();
     }
 
+    public int getExponent() {
+        return exponent;
+    }
+
     public String toString()
     {
         String output = "";
@@ -71,11 +64,14 @@ public class Monomial {
         return output + "x^" + exponent;
     }
 
-    public Monomial clone() {
-        return new Monomial(this.exponent, this.coefficient.clone());
+    public boolean equals(Object m) {
+        if (m instanceof Monomial)
+            return(((Monomial)m).coefficient.equals(this.coefficient) && ((Monomial)m).exponent == this.exponent);
+        else
+            return false;
     }
 
-    public int getExponent() {
-        return exponent;
+    public Monomial clone() {
+        return new Monomial(this.exponent, this.coefficient.clone());
     }
 }

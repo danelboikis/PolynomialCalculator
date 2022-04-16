@@ -76,14 +76,14 @@ class PolynomialTest {
     }
 
     @Test
-    void derivate() {
-        assertEquals(p.derivate(), Polynomial.build("0"));
+    void derivative() {
+        assertEquals(p.derivative(), Polynomial.build("0"));
 
         p = Polynomial.build("1 1 1/2 1/3 1/4 0 1/6");
-        assertEquals(p.derivate(), Polynomial.build("1 1 1 1 0 1"));
+        assertEquals(p.derivative(), Polynomial.build("1 1 1 1 0 1"));
 
         p = Polynomial.build("0 50 0 0 0 0 0 0 0 13 1/100");
-        assertEquals(p.derivate(), Polynomial.build("50 0 0 0 0 0 0 0 117 1/10"));
+        assertEquals(p.derivative(), Polynomial.build("50 0 0 0 0 0 0 0 117 1/10"));
     }
 
     @Test

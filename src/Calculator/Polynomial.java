@@ -17,27 +17,6 @@ public class Polynomial {
             monomials.put(m.getExponent(), m.clone());
     }
 
-    public boolean equals(Object p)
-    {
-        if(!(p instanceof Polynomial))
-            return false;
-        boolean output = true;
-        Set<java.lang.Integer> keyset = this.monomials.keySet();
-        for(Map.Entry<java.lang.Integer, Monomial> entry:
-                ((Polynomial)p).monomials.entrySet())
-        {
-
-            output = this.monomials.containsKey(entry.getKey()) && this.monomials.get(entry.getKey()).equals(entry.getValue());
-            if(!output) {
-                return false;
-            }
-            keyset.remove(entry.getKey());
-
-        }
-
-        return keyset.isEmpty();
-    }
-
     private Scalar stringToScalar(String s) {
         if (s.contains("/")) {
             return (new Rational(java.lang.Integer.parseInt(s.split("/")[0]), java.lang.Integer.parseInt(s.split("/")[1])));
@@ -82,8 +61,6 @@ public class Polynomial {
         return res;
     }
 
-
-
     private void addToTreeMap(TreeMap<java.lang.Integer, Monomial> add) {
         for (Map.Entry<java.lang.Integer, Monomial> entry:
              add.entrySet()) {
@@ -126,7 +103,7 @@ public class Polynomial {
         return res;
     }
 
-    public Polynomial derivate()
+    public Polynomial derivative()
     {
         Polynomial p = new Polynomial();
         for (Map.Entry<java.lang.Integer, Monomial> entry:
@@ -143,6 +120,31 @@ public class Polynomial {
 
     private static boolean monoIsZero(Monomial m) {
         return m.sign() == 0;
+    }
+
+    public TreeMap<java.lang.Integer, Monomial> getMonomials() {
+        return monomials;
+    }
+
+    public boolean equals(Object p)
+    {
+        if(!(p instanceof Polynomial))
+            return false;
+        boolean output = true;
+        Set<java.lang.Integer> keyset = this.monomials.keySet();
+        for(Map.Entry<java.lang.Integer, Monomial> entry:
+                ((Polynomial)p).monomials.entrySet())
+        {
+
+            output = this.monomials.containsKey(entry.getKey()) && this.monomials.get(entry.getKey()).equals(entry.getValue());
+            if(!output) {
+                return false;
+            }
+            keyset.remove(entry.getKey());
+
+        }
+
+        return keyset.isEmpty();
     }
 
     @Override
@@ -174,10 +176,6 @@ public class Polynomial {
             return "0";
 
         return s;
-    }
-
-    public TreeMap<java.lang.Integer, Monomial> getMonomials() {
-        return monomials;
     }
 }
 

@@ -9,22 +9,6 @@ public class Rational implements Scalar{
         this.denominator = denominator;
     }
 
-    public boolean equals(Object r)
-    {
-        if (r instanceof Rational) {
-            Rational r2 = this.reduce();
-            Rational r3 = ((Rational)r).reduce();
-
-            return r2.numerator == r3.numerator && r2.denominator == r3.denominator;
-        }
-        else if (r instanceof Integer) {
-            Rational r2 = this.reduce();
-            return r2.denominator == 1 && r2.numerator == ((Integer)r).getNumber();
-        }
-        else
-            return false;
-    }
-
     @Override
     public Scalar add(Scalar s) {
         return s.add(this);
@@ -126,8 +110,24 @@ public class Rational implements Scalar{
         }
     }
 
-    @Override
     public Scalar clone() {
         return new Rational(this.numerator, this.denominator);
+    }
+
+    @Override
+    public boolean equals(Object r)
+    {
+        if (r instanceof Rational) {
+            Rational r2 = this.reduce();
+            Rational r3 = ((Rational)r).reduce();
+
+            return r2.numerator == r3.numerator && r2.denominator == r3.denominator;
+        }
+        else if (r instanceof Integer) {
+            Rational r2 = this.reduce();
+            return r2.denominator == 1 && r2.numerator == ((Integer)r).getNumber();
+        }
+        else
+            return false;
     }
 }

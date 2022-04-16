@@ -7,17 +7,6 @@ public class Integer implements Scalar{
         this.number = number;
     }
 
-    public boolean equals(Object i) {
-        if(i instanceof Integer)
-            return ((Integer)i).getNumber() == this.getNumber();
-        else if(i instanceof Rational) {
-            i = ((Rational) i).reduce();
-            return ((Rational) i).getDenominator() == 1 && ((Rational) i).getNumerator() == this.number;
-        }
-        else
-            return false;
-    }
-
     @Override
     public Scalar add(Scalar s) {
         return s.add(this);
@@ -78,8 +67,19 @@ public class Integer implements Scalar{
         return "" + number;
     }
 
-    @Override
     public Scalar clone() {
         return new Integer(this.number);
+    }
+
+    @Override
+    public boolean equals(Object i) {
+        if(i instanceof Integer)
+            return ((Integer)i).getNumber() == this.getNumber();
+        else if(i instanceof Rational) {
+            i = ((Rational) i).reduce();
+            return ((Rational) i).getDenominator() == 1 && ((Rational) i).getNumerator() == this.number;
+        }
+        else
+            return false;
     }
 }
