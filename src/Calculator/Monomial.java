@@ -25,6 +25,8 @@ public class Monomial {
     {
         if(m.exponent == exponent)
             return new Monomial(exponent, coefficient.add(m.coefficient));
+        else if (m.coefficient.equals(new Integer(0)))
+            return this.clone();
         return null;
     }
 
@@ -41,7 +43,7 @@ public class Monomial {
     public Monomial derivative()
     {
         if(exponent == 0)
-            return(new Monomial(0, coefficient.mul(new Integer(0))));
+            return(new Monomial(0, new Integer(0)));
         return(new Monomial(exponent - 1, coefficient.mul(new Integer(exponent))));
     }
 
@@ -52,18 +54,21 @@ public class Monomial {
 
     public String toString()
     {
+        String output = "";
+
+        if (exponent == 0)
+            return  coefficient.toString();
         if(coefficient.sign() == 0)
             return "0";
-        if(exponent == 0)
-            return coefficient.toString();
-        if(exponent == 1)
-            return(coefficient.toString() + "x");
-        else if(coefficient.toString().equals("1"))
-            return "x^" + exponent;
-        else if(coefficient.toString().equals("-1"))
-            return "-x^" + exponent;
-        else
-            return coefficient.toString() + "x^" + exponent;
+        if(!coefficient.equals(new Integer(1))) {
+            if (coefficient.equals(new Integer(-1)))
+                output += "-";
+            else
+                output += coefficient.toString();
+        }
+        if (exponent == 1)
+            return output + "x";
+        return output + "x^" + exponent;
     }
 
     public Monomial clone() {

@@ -9,12 +9,12 @@ public class Polynomial {
 
     public Polynomial() {
         monomials = new TreeMap<>();
-        monomials.put(0, new Monomial(0, new Integer(0)));
     }
 
     private Polynomial(Monomial m){
         this();
-        monomials.put(m.getExponent(), m.clone());
+        if (!monoIsZero(m))
+            monomials.put(m.getExponent(), m.clone());
     }
 
     public boolean equals(Object p)
@@ -86,16 +86,15 @@ public class Polynomial {
     private void addToTreeMap(TreeMap<java.lang.Integer, Monomial> add) {
         for (Map.Entry<java.lang.Integer, Monomial> entry:
              add.entrySet()) {
+            Monomial m = entry.getValue();
             if(this.monomials.containsKey(entry.getKey())) {
-                this.monomials.put(entry.getKey(), entry.getValue().add(this.monomials.get(entry.getKey())));
-
-                if(this.monomials.get(entry.getKey()).getCoefficient().sign() == 0)
-                    this.monomials.remove(entry.getKey());
+                m = m.add(this.monomials.get(entry.getKey()));
             }
 
-            else {
-                this.monomials.put(entry.getKey(), entry.getValue().clone());
-            }
+            if(!monoIsZero(m))
+                this.monomials.put(entry.getKey(), m);
+            else
+                this.monomials.remove(entry.getKey());
         }
     }
 
@@ -107,7 +106,8 @@ public class Polynomial {
             for (Map.Entry<java.lang.Integer, Monomial> entry2:
                  this.monomials.entrySet()) {
                 Monomial multiplied = entry1.getValue().mul(entry2.getValue());
-                res = res.add(new Polynomial(multiplied));
+                if (!monoIsZero(multiplied))
+                    res = res.add(new Polynomial(multiplied));
             }
         }
 
@@ -132,7 +132,7 @@ public class Polynomial {
                 this.monomials.entrySet())
         {
             Monomial m = entry.getValue().derivative();
-            if(m.getCoefficient().sign() != 0) {
+            if(!monoIsZero(m)) {
                 p = p.add(new Polynomial(m));
             }
         }
@@ -140,18 +140,43 @@ public class Polynomial {
         return p;
     }
 
+    private static boolean monoIsZero(Monomial m) {
+        return m.sign() == 0;
+    }
+
     @Override
     public String toString()
     {
         String s = "";
+        boolean first = true;
 
         for (Map.Entry<java.lang.Integer, Monomial> entry:
                 this.monomials.entrySet()) {
-            s = s + entry.getValue().toString();
+            //s = s + entry.getValue().toString();
+            Monomial m = entry.getValue();
+
+            if (m.sign() == 1) {
+                if (first)
+                    first = false;
+                else
+                    s += "+";
+                s +=  m.toString();
+            }
+            if (m.sign() == -1) {
+                if (first)
+                    first = false;
+                s += m.toString();
+            }
         }
+
+        if(s.equals(""))
+            return "0";
 
         return s;
     }
 
+    public TreeMap<java.lang.Integer, Monomial> getMonomials() {
+        return monomials;
+    }
 }
 
