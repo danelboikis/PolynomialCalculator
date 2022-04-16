@@ -51,7 +51,8 @@ public class Polynomial {
 
     public static Polynomial build(String input)
     {
-        String[] s = input.trim().split(" ");
+        String[] s = input.trim().replaceAll("( )+", " ").split(" ");
+
         Polynomial p = new Polynomial();
         for (int i = 0; i < s.length; i = i + 1)
         {

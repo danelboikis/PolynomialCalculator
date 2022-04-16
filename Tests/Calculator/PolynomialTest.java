@@ -3,6 +3,8 @@ package Calculator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.TreeMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PolynomialTest {
@@ -16,7 +18,25 @@ class PolynomialTest {
 
     @Test
     void build() {
-        //assertEquals(p, (new Polynomial());
+        TreeMap<java.lang.Integer, Monomial> monomials = new TreeMap<>();
+
+        p = Polynomial.build("1 2 3 4");
+        monomials.put(0, new Monomial(0, new Integer(1)));
+        monomials.put(1, new Monomial(1, new Integer(2)));
+        monomials.put(2, new Monomial(2, new Integer(3)));
+        monomials.put(3, new Monomial(3, new Integer(4)));
+        assertEquals(p.getMonomials(), monomials);
+
+        p = Polynomial.build("13/2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -34/13");
+        monomials = new TreeMap<>();
+        monomials.put(0, new Monomial(0, new Rational(13, 2)));
+        monomials.put(15, new Monomial(15, new Rational(-34, 13)));
+        assertEquals(p.getMonomials(), monomials);
+
+        p = Polynomial.build("   0 0 0 0 0 0 0 0 0 0 0 0 0          0 0 0 0 0 0 0 0 0 40 0 0 0 0   ");
+        monomials = new TreeMap<>();
+        monomials.put(22, new Monomial(22, new Rational(80, 2)));
+        assertEquals(p.getMonomials(), monomials);
 
         //assertEquals(Polynomial.build(""));
     }
