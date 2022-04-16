@@ -10,8 +10,10 @@ public class Integer implements Scalar{
     public boolean equals(Object i) {
         if(i instanceof Integer)
             return ((Integer)i).getNumber() == this.getNumber();
-        else if(i instanceof Rational)
-            return ((Rational)i).getNumerator() / ((Rational)i).getDenominator() == this.getNumber();
+        else if(i instanceof Rational) {
+            i = ((Rational) i).reduce();
+            return ((Rational) i).getDenominator() == 1 && ((Rational) i).getNumerator() == this.number;
+        }
         else
             return false;
     }

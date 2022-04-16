@@ -11,10 +11,16 @@ public class Rational implements Scalar{
 
     public boolean equals(Object r)
     {
-        if (r instanceof Rational)
-            return(this.getNumerator()/this.getDenominator() == ((Rational)r).getNumerator()/((Rational)r).getDenominator());
-        else if (r instanceof Integer)
-            return this.getNumerator()/this.getDenominator() == ((Integer)r).getNumber();
+        if (r instanceof Rational) {
+            Rational r2 = this.reduce();
+            Rational r3 = ((Rational)r).reduce();
+
+            return r2.numerator == r3.numerator && r2.denominator == r3.denominator;
+        }
+        else if (r instanceof Integer) {
+            Rational r2 = this.reduce();
+            return r2.denominator == 1 && r2.numerator == ((Integer)r).getNumber();
+        }
         else
             return false;
     }
@@ -26,13 +32,13 @@ public class Rational implements Scalar{
 
     @Override
     public Scalar add(Integer s) {
-        return add(new Rational(s.getNumber(), 1));
+        return ((Rational)add(new Rational(s.getNumber(), 1))).reduce();
     }
 
     @Override
     public Scalar add(Rational s) {
-        return new Rational(this.numerator * s.denominator + s.numerator * this.denominator,
-                this.denominator * s.denominator);
+        return (new Rational(this.numerator * s.denominator + s.numerator * this.denominator,
+                this.denominator * s.denominator)).reduce();
     }
 
     @Override
@@ -42,12 +48,12 @@ public class Rational implements Scalar{
 
     @Override
     public Scalar mul(Rational s) {
-        return new Rational(this.numerator * s.numerator, this.denominator * s.denominator);
+        return (new Rational(this.numerator * s.numerator, this.denominator * s.denominator)).reduce();
     }
 
     @Override
     public Scalar mul(Integer s) {
-        return mul(new Rational(s.getNumber(), 1));
+        return ((Rational)mul(new Rational(s.getNumber(), 1))).reduce();
     }
 
     @Override
@@ -69,7 +75,9 @@ public class Rational implements Scalar{
 
     @Override
     public int sign() {
-        return (int) Math.signum(this.numerator * this.denominator);
+        int s1 = (int) Math.signum(this.numerator);
+        int s2 = (int) Math.signum(this.denominator);
+        return s1 * s2;
     }
 
     private static int gcd(int n, int m) {
