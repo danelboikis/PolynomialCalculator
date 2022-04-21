@@ -17,16 +17,16 @@ class IntegerTest {
     @Test
     void add() {
         i = i.add(new Integer(0));
-        assertTrue(i.equals(new Integer(0)));
+        assertEquals(i, new Integer(0));
 
         i = i.add(new Integer(8));
-        assertTrue(i.equals(new Integer(8)));
+        assertEquals(i, new Integer(8));
 
         i = i.add(new Integer(-11));
-        assertTrue(i.equals(new Integer(-3)));
+        assertEquals(i, new Integer(-3));
 
         i = i.add(new Rational(13, 2));
-        assertTrue(i.equals(new Rational(7, 2)));
+        assertEquals(i, new Rational(7, 2));
     }
 
     @Test
@@ -34,67 +34,67 @@ class IntegerTest {
         i = new Integer(1);
 
         i = i.mul(new Integer(8));
-        assertTrue(i.equals(new Integer(8)));
+        assertEquals(i, new Integer(8));
 
         i = i.mul(new Integer(-3));
-        assertTrue(i.equals(new Integer(-24)));
+        assertEquals(i, new Integer(-24));
 
         i = i.mul(new Rational(3, 4));
-        assertTrue(i.equals(new Integer(-18)));
+        assertEquals(i, new Integer(-18));
 
         i = i.mul(new Integer(0));
-        assertTrue(i.equals(new Integer(0)));
+        assertEquals(i, new Integer(0));
     }
 
     @Test
     void neg() {
-        assertTrue(i.neg().equals(new Integer(0)));
+        assertEquals(i.neg(), new Integer(0));
 
         i = new Integer(8);
-        assertTrue(i.neg().equals(new Integer(-8)));
+        assertEquals(i.neg(), new Integer(-8));
 
-        assertTrue(i.neg().neg().equals(new Integer(8)));
+        assertEquals(i.neg().neg(), new Integer(8));
 
 
     }
 
     @Test
     void power() {
-        assertTrue(i.power(0).equals(new Integer(1)));
+        assertEquals(i.power(0), new Integer(1));
 
-        assertTrue(i.power(12345).equals(new Integer(0)));
+        assertEquals(i.power(12345), new Integer(0));
 
         i = new Integer(5);
-        assertTrue(i.power(4).equals(new Integer(625)));
+        assertEquals(i.power(4), new Integer(625));
 
         i = new Integer(2);
-        assertTrue(i.power(26).equals(new Integer(67108864)));
+        assertEquals(i.power(26), new Integer(67108864));
 
-        assertTrue(i.power(0).equals(new Integer(1)));
+        assertEquals(i.power(0), new Integer(1));
     }
 
     @Test
     void sign() {
-        assertTrue(i.sign() == 0);
+        assertEquals(0, i.sign());
 
         i = new Integer(20);
-        assertTrue(i.sign() == 1);
+        assertEquals(1, i.sign());
 
         i = new Integer(-12);
-        assertTrue(i.sign() == -1);
+        assertEquals(-1, i.sign());
     }
 
     @Test
     void testToString() {
-        assertTrue(i.toString().equals("0"));
+        assertEquals("0", i.toString());
 
         i = new Integer(-8);
-        assertTrue(i.toString().equals("-8"));
+        assertEquals("-8", i.toString());
 
         i = new Integer(20);
-        assertTrue(i.toString().equals("20"));
+        assertEquals("20", i.toString());
 
         i = new Integer(234568900);
-        assertTrue(i.toString().equals("234568900"));
+        assertEquals("234568900", i.toString());
     }
 }
